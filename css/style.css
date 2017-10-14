@@ -104,7 +104,7 @@ body {
 }
 
 .card::before, .response>.bubble::before, .video::before {
-  content: url(/chatboxassets/s/duolog_logo_small.png);
+  content: url(../assets/duolog_logo_small.png);
   opacity: 0.2;
   position: absolute;
   left: -40px;

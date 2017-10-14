@@ -1,0 +1,105 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+  <style>
+    .chatbot {
+      position: fixed;
+      bottom: 0;
+      right: 12px;
+    }
+    .chatbot__toolbar {
+      height: 26px;
+      width: 100%;
+      background-color: #404040;
+      position: relative;
+    }
+    .chatbot__toolbar h1 {
+      font-family: helvetica, sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      color: white;
+      line-height: 26px;
+      padding-left: 14px;
+      letter-spacing: .1em;
+      margin: 0;
+    }
+    .chatbot__controls {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+    .chatbot__controls > div {
+      display: inline-block;
+      height: 100%;
+      width: 50px;
+      position: relative;
+      cursor: pointer;
+    }
+    .chatbot__toggle > div {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    .material-icons {
+      color: white;
+      vertical-align: top;
+    }
+    .chatbot__maximize--hidden, .chatbot__minimize--hidden {
+      visibility: hidden;
+    }
+    .chatbot__container {
+      margin: 0;
+      padding: 0;
+      transition: all 500ms ease-in-out;
+      height: 500px;
+      overflow: auto;
+    }
+    .chatbot__iframe {
+      border: none;
+      height: 500px;
+      width: 360px;
+    }
+  </style>
+
+  <div class="chatbot">
+    <div class="chatbot__toolbar">
+      <h1>Talk to me</h1>
+      <div class="chatbot__controls">
+        <div class="chatbot__toggle">
+          <div class="chatbot__minimize material-icons">&#xE313;</div>
+          <div class="chatbot__maximize chatbot__maximize--hidden material-icons">&#xE316;</div>
+        </div>
+        <!-- <div class="chatbot__pop-out material-icons">&#xE0B2;</div> -->
+      </div>
+    </div>
+    <div class="chatbot__container">
+      <iframe class="chatbot__iframe" src="https://duolog-helper.bitballoon.com/"></iframe> <!-- demo url -->
+    </div>
+  </div>
+
+  <script type="text/javascript">
+
+    var Chatbot = function() {
+      this.minimized = false;
+      this.container = document.querySelector(".chatbot__container");
+      this.toggle = document.querySelector(".chatbot__toggle");
+      this.minimize = document.querySelector(".chatbot__minimize");
+      this.maximize = document.querySelector(".chatbot__maximize");
+    };
+
+    var duologChatbot = new Chatbot();
+
+    duologChatbot.toggle.addEventListener("click", function() {
+      if (!duologChatbot.minimized) {
+        duologChatbot.minimize.classList.add("chatbot__minimize--hidden");
+        duologChatbot.maximize.classList.remove("chatbot__maximize--hidden");
+        duologChatbot.container.style.height = "0px";
+      } else {
+        duologChatbot.minimize.classList.remove("chatbot__minimize--hidden");
+        duologChatbot.maximize.classList.add("chatbot__maximize--hidden");
+        duologChatbot.container.style.height = "500px";
+      }
+      duologChatbot.minimized = !duologChatbot.minimized;
+    })
+
+</script>

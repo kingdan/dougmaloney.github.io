@@ -1,0 +1,490 @@
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: Helvetica, sans-serif;
+  padding: 0;
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.chatbot {
+  background-color: #FFFFFF;
+  width: 360px;
+  height: 640px;
+  -webkit-box-shadow: 0px 0px 17px 2px rgba(0, 0, 0, 0.22);
+  box-shadow: 0px 0px 17px 2px rgba(0, 0, 0, 0.22);
+  overflow: hidden;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+/***********************/
+/******* HEADER  *******/
+/***********************/
+
+.header {
+  height: 15%;
+  background-color: #cccccc;  /* Fallback if no image */
+  background-size: cover;
+  -webkit-box-shadow: 0px 1px 4px 2px rgba(0, 0, 0, 0.70);
+  box-shadow: 0px 1px 4px 2px rgba(0, 0, 0, 0.70);
+  position: relative;
+  z-index: 1;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.header__wrapper {
+  height: 50%;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  display: table;
+}
+
+.header__color {
+  position: absolute;
+  left: 0;
+  z-index: -1;
+  height: 100%;
+  width: 100%;
+  opacity: 0.3;
+}
+
+.header__text {
+  box-sizing: border-box;
+  font-size: 3rem;
+  line-height: 3rem;
+  font-weight: 100;
+  margin: 0;
+  padding: 0 1.2rem;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+
+/***********************/
+/******** WINDOW *******/
+/***********************/
+
+.window {
+  box-sizing: border-box;
+  overflow-y: scroll;
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  -ms-flex-negative: 1;
+  flex-shrink: 1;
+  padding: 20px 12px 12px 20px;
+}
+
+.query {
+  text-align: right;
+}
+
+.response {
+  position: relative;
+}
+
+.card::before, .response>.bubble::before, .video::before {
+  content: url(/chatboxassets/s/duolog_logo_small.png);
+  opacity: 0.2;
+  position: absolute;
+  left: -40px;
+  top: 50%;
+  -webkit-transform: translateY(-50%) scale(0.35);
+  -ms-transform: translateY(-50%) scale(0.35);
+  transform: translateY(-50%) scale(0.35);
+}
+
+.query, .response {
+  margin: 12px;
+  font-weight: 100;
+  -webkit-animation: 500ms ease-in-out zoom;
+  animation: 500ms ease-in-out zoom;
+}
+
+.bubble {
+  display: inline-block;
+  padding: 0 1.2rem;
+}
+
+.response .bubble {
+  background-color: #400080;
+  color: #FFFFFF;
+  border-radius: 3px 12px 12px;
+  text-align: left;
+  border: 1px solid #400080;
+  position: relative;
+}
+
+.query .bubble {
+  background-color: #FFFFFF;
+  color: #400080;
+  border-radius: 12px 12px 3px 12px;
+  border: 1px solid #400080;
+}
+
+.bubble__text p {
+  margin: 0;
+  line-height: 2rem;
+}
+
+.quick-reply {
+  margin: 12px 0;
+  width: 100%;
+  text-align: justify;
+}
+
+.quick-reply__button {
+  background-color: #FFFFFF;
+  color: #400080;
+  border-radius: 12px;
+  border: 1px solid #400080;
+  display: inline-block;
+  width: 30%;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.25s;
+  overflow: hidden;
+  line-height: 2.2rem;
+}
+
+.quick-reply--5, .quick-reply--4 {
+  white-space: nowrap;
+  overflow-x: scroll;
+}
+
+.quick-reply--2 .quick-reply__button {
+  width: 48%;
+}
+
+.quick-reply--1 .quick-reply__button {
+  width: 98%;
+}
+
+.quick-reply::after {
+  content: "";
+  width: 100%;
+  display: inline-block;
+}
+
+.quick-reply__button:hover {
+  color: #FFFFFF;
+  background-color: #400080;
+}
+
+.card {
+  background-color: #FFFFFF;
+  margin: 0 auto;
+  max-width: 400px;
+  border: 1px solid #cccccc;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.card__image {
+  width: 100%;
+  padding-top: 53%; /* Approximation to achieve 1:1.9 ratio*/
+  background-size: cover;
+}
+
+.card__title {
+  margin: 6px 12px 0 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  font-weight: 600;
+  font-size: 1.3rem;
+}
+
+.card__title strong {
+  font-weight: 500;
+}
+
+.card__subtitle {
+  margin: 2px 12px 6px 12px;
+  color: #888888;
+  font-size: 1.2rem;
+  font-weight: 500;
+  font-weight: 500;
+}
+
+.card__button {
+  border-top: 1px solid #cccccc;
+  cursor: pointer;
+  text-align: center;
+  color: #400080;
+  line-height: 2.2rem;
+  -webkit-transition: all 0.25s;
+  -o-transition: all 0.25s;
+  transition: all 0.25s;
+}
+
+.card__button:hover {
+  color: #FFFFFF;
+  background-color: #400080;
+}
+
+.video {
+  /* An otherwise superfluous element needed since overflow: hidden necessary to achieve border radius effect on video, but that hides the avatar/icon pseudo element. */
+  margin: 0;
+  padding: 0;
+}
+
+.video__box {
+  background-color: #FFFFFF;
+  margin: 0 auto;
+  max-width: 400px;
+  border: 1px solid #cccccc;
+  border-radius: 12px;
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+  z-index: 1; /* Necessary to prevent intermittent bug where border radius does not clip content when a transition is applied to the element*/
+}
+
+iframe {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.video__player {
+  border: none;
+  display: block;
+}
+
+
+/***********************/
+/******** INPUT ********/
+/***********************/
+
+.input {
+  border-top: 1px solid #d3d3d3;
+  height: 4rem;
+  width: 100%;
+  background-color: #FFFFFF;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.input__text {
+  font-family: Helvetica, sans-serif;
+  padding-left: 12px;
+  border: none;
+  font-size: 1.4rem;
+  width: 100%;
+  line-height: 4rem;
+}
+
+.input__button {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 10px;
+}
+
+.input__mic, .input__send {
+  font-size: 3rem;
+  line-height: 4rem;
+  cursor: pointer;
+  -webkit-transition: all 0.25s;
+  -o-transition: all 0.25s;
+  transition: all 0.25s;
+}
+
+.input__mic--inactive, .input__send--inactive {
+  color: #B7BBC4;
+}
+
+.input__mic--active, .input__send--active {
+  color: #F76949;
+}
+
+.input__send--inactive:active {
+  color: #F76949;
+}
+
+/****************************************/
+/******** STATUS / ERROR / LOADER *******/
+/****************************************/
+
+.status {
+  text-align: center;
+  width: 100%;
+  font-size: 1.2rem;
+}
+
+.error--hidden {
+  opacity: 0;
+}
+
+.error {
+  transition: all 1s;
+  margin: 0 auto;
+}
+
+.error__message {
+  background-color: #767676;
+  color: #FFFFFF;
+  padding: 6px;
+  font-weight: 100;
+}
+
+.loading {
+  font-size: 0;
+  transition: all 1s;
+}
+
+.loading--visible {
+  opacity: 1;
+}
+
+.loading--hidden {
+  opacity: 0;
+}
+
+.loading--hidden div {
+  -webkit-animation-play-state:paused;
+  -moz-animation-play-state:paused;
+  -o-animation-play-state:paused;
+  animation-play-state:paused;
+}
+
+.loading__left, .loading__middle, .loading__right {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: black;
+  -webkit-animation: loader 1.4s infinite ease-in-out both;
+  animation: loader 1.4s infinite ease-in-out both;
+  margin: 0 1px;
+}
+
+.loading__left {
+  -webkit-animation-delay: 0.1s;
+  animation-delay: 0.1s;
+}
+
+.loading__middle {
+  -webkit-animation-delay: 0.2s;
+  animation-delay: 0.2s;
+}
+
+.loading__right {
+  -webkit-animation-delay: 0.3s;
+  animation-delay: 0.3s;
+}
+
+/*******************************/
+/***** ANIMATION KEYFRAMES *****/
+/*******************************/
+
+@-webkit-keyframes loader {
+  0% {
+    -webkit-transform: scale(.2);
+    transform: scale(.2);
+    opacity: 1;
+  }
+  50% {
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
+    opacity: 0.5;
+  }
+  100% {
+    -webkit-transform: scale(.2);
+    transform: scale(.2);
+    opacity: 0.2;
+  }
+}
+
+@keyframes loader {
+  0% {
+    transform: scale(.2);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(.2);
+    opacity: 0.2;
+  }
+}
+
+@-webkit-keyframes zoom {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  70% {
+    opacity: .7;
+    -webkit-transform: scale(1.05);
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+@keyframes zoom {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  70% {
+    opacity: .7;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/***********************/
+/**** MEDIA QUERIES ****/
+/***********************/
+
+@media (max-width: 359px) {
+  .chatbot {
+    width: 100vw;
+    height: 100vh;
+  }
+  .quick-reply__button {
+    display: block;
+    width: 98% !important;
+    margin-bottom: 6px;
+  }
+}
+
+@media (max-height: 639px) {
+  .chatbot {
+    height: 100vh;
+  }
+}

@@ -1,0 +1,152 @@
+<!-- V3 -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+  <style>
+    .chatbot {
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      z-index: 1000; /* For SquareSpace themes*/
+      -webkit-box-shadow: 0px 0px 17px 2px rgba(0, 0, 0, 0.22);
+      box-shadow: 0px 0px 17px 2px rgba(0, 0, 0, 0.22)
+    }
+    .chatbot__toolbar {
+      height: 26px;
+      width: 100%;
+      background-color: #404040;
+      position: relative;
+    }
+    .chatbot__toolbar h1 {
+      font-family: helvetica, sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      color: white;
+      line-height: 26px;
+      padding-left: 14px;
+      letter-spacing: .1em;
+      margin: 0;
+    }
+    .chatbot__controls {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+    .chatbot__controls > div {
+      display: inline-block;
+      height: 100%;
+      width: 50px;
+      position: relative;
+      cursor: pointer;
+    }
+    .chatbot__toggle > div {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    .material-icons {
+      color: white;
+      vertical-align: top;
+    }
+    .chatbot__maximize--hidden, .chatbot__minimize--hidden {
+      visibility: hidden;
+    }
+    .chatbot__container {
+      margin: 0;
+      padding: 0;
+      transition: all 300ms ease-in-out;
+      height: 520px;
+      overflow: auto;
+      line-height: 0;  /* Eliminate gap between container and iframe*/
+      font-size: 0;    /* Eliminate gap between container and iframe*/
+    }
+    .chatbot__iframe {
+      border: none;
+      height: 520px;
+      width: 360px;
+    }
+    @media (max-width: 400px) , (max-height: 400px) {
+      .chatbot {
+        width: 100vw;
+        right: 0;
+      }
+      .chatbot__container {
+        width: 100%;
+      }
+      .chatbot__iframe {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  </style>
+
+  <div class="chatbot">
+    <div class="chatbot__toolbar">
+      <h1>Talk to me</h1>
+      <div class="chatbot__controls">
+        <div class="chatbot__toggle">
+          <div class="chatbot__minimize material-icons">&#xE313;</div>
+          <div class="chatbot__maximize chatbot__maximize--hidden material-icons">&#xE316;</div>
+        </div>
+        <!-- <div class="chatbot__pop-out material-icons">&#xE0B2;</div> -->
+      </div>
+    </div>
+    <div class="chatbot__container">
+      <iframe class="chatbot__iframe" src="https://duolog-helper.bitballoon.com/"></iframe> <!-- demo url -->
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var Chatbot = function() {
+      this.minimized = false;
+      this.chatbot = document.querySelector(".chatbot");
+      this.container = document.querySelector(".chatbot__container");
+      this.iframe = document.querySelector(".chatbot__iframe");
+      this.toggle = document.querySelector(".chatbot__toggle");
+      this.minimize = document.querySelector(".chatbot__minimize");
+      this.maximize = document.querySelector(".chatbot__maximize");
+      this.toggleMinimized = function() {
+        if (!this.minimized) {
+          this.minimize.classList.add("chatbot__minimize--hidden");
+          this.maximize.classList.remove("chatbot__maximize--hidden");
+          this.container.style.height = "0";
+        } else {
+          this.minimize.classList.remove("chatbot__minimize--hidden");
+          this.maximize.classList.add("chatbot__maximize--hidden");
+          this.container.style.height = this.maxHeight();
+          this.iframe.style.height = this.maxHeight();
+        }
+        this.minimized = !this.minimized;
+      }
+      this.maxHeight = function() {
+        var windowHeight = window.innerHeight;
+        return windowHeight >= 666 ? "520px" : (windowHeight - 26) + "px";
+      }
+    };
+    var duologChatbot = new Chatbot();
+    duologChatbot.toggle.addEventListener("click", function() {
+      duologChatbot.toggleMinimized();
+    });
+    var resizeTimeout;
+    var resizeThrottler = function() {
+      if (!resizeTimeout) {
+        resizeTimeout = setTimeout(function() {
+          resizeTimeout = null;
+          sizeHandler();
+        }, 500)
+      }
+    }
+    var sizeHandler = function() {
+      var tooNarrow = window.innerHeight <= parseInt(window.getComputedStyle(duologChatbot.chatbot).height)
+      var tooSmall = window.innerWidth < 400;
+      if ((tooNarrow || tooSmall) && !duologChatbot.minimized) {
+        duologChatbot.toggleMinimized();
+      }
+    }
+    window.addEventListener("resize", resizeThrottler);
+    window.onload = function() {
+      window.setTimeout(sizeHandler, 1000);
+    }
+  </script>
+
+<!-- end v3 -->
